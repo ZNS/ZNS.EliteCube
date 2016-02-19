@@ -1,0 +1,6 @@
+﻿<ul class="imageList">
+    <li ng-repeat="img in images | orderBy: '-created'">
+        <a href="{{img.path.replace('_thumb', '')}}" ng-click="viewImage($event)"><img ng-src="{{img.path}}" alt="" /></a>
+        <div><span ng-if="img.system">{{img.system}}</span> {{img.date | toDateString:true}}</div>
+    </li>
+</ul>

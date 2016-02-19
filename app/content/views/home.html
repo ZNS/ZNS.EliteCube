@@ -1,0 +1,136 @@
+﻿<div id="Home">
+    <h1>CMDR {{profile.commander.name}}</h1>
+
+    <div class="container-fluid full-width">
+        <div class="row">
+            <div class="col-sm-4">
+                <section class="box gradient">
+                    <h2>Status</h2>
+                    <div class="property">
+                        <span>Credits:</span>
+                        <span>{{profile.commander.credits | delimited}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Debt:</span>
+                        <span>{{profile.commander.debt | delimited}}</span>
+                    </div>
+                    <h2>Rankings</h2>
+                    <div class="rank">
+                        <img ng-src="/images/rankings/rank-{{profile.commander.rank.combat}}-combat.svg" alt="" />
+                        <div>
+                            <span>Combat Rank</span>
+                            <span>{{profile.commander.rank.combatName}}</span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <img ng-src="/images/rankings/rank-{{profile.commander.rank.trade}}-trading.svg" alt="" />
+                        <div>
+                            <span>Trader Rank</span>
+                            <span>{{profile.commander.rank.tradeName}}</span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <img ng-src="/images/rankings/rank-{{profile.commander.rank.explore}}.svg" alt="" />
+                        <div>
+                            <span>Explorer Rank</span>
+                            <span>{{profile.commander.rank.exploreName}}</span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <img ng-src="/images/rankings/rank-{{profile.commander.rank.cqc}}-cqc.svg" alt="" />
+                        <div>
+                            <span>CQC Rank</span>
+                            <span>{{profile.commander.rank.cqcName}}</span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <img src="/images/federation.svg" alt="" />
+                        <div>
+                            <span>Federation</span>
+                            <span>{{profile.commander.rank.federationName}}</span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <img src="/images/empire.svg" alt="" />
+                        <div>
+                            <span>Empire</span>
+                            <span>{{profile.commander.rank.empireName}}</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-sm-8" style="margin-bottom: 30px;">
+                <section class="box gradient">
+                    <h2>Current location</h2>
+                    <div class="property" ng-if="profile.commander.docked">
+                        <span class="large">{{profile.lastStarport.name}}</span>
+                        <span><heart system-id="{{profile.lastSystem.id}}"></heart> {{profile.lastSystem.name}}</span>
+                    </div>
+                    <div class="property" ng-if="!profile.commander.docked">
+                        <span class="large"><heart system-id="{{profile.lastSystem.id}}"></heart> {{profile.lastSystem.name}}</span>
+                    </div>
+
+                    <div ng-if="profile.commander.docked">
+                        <h2>Trading</h2>
+                        <div class="property">
+                            <span>Buy (50% below avg.):</span>
+                            <span>{{names(buy)}}</span>
+                        </div>
+                        <div class="property">
+                            <span>Sell (50% above avg.):</span>
+                            <span>{{names(sell)}}</span>
+                        </div>
+                    </div>
+                    
+                    <h2>Journey <journey-new></journey-new></h2>
+                    <div>
+                        <div class="property">
+                            <span>Current:</span>
+                            <span ng-if="currentJourney"><a href="#/journey/{{currentJourney.JourneyId}}">{{currentJourney.Heading}}</a>, {{currentJourney.StartDate | dateDiff:null}}</span>
+                            <span ng-if="!currentJourney">Not on any journey</span>
+                        </div>
+                    </div>
+
+                    <h2>Ship</h2>
+                    <div class="property">
+                        <span class="large">{{profile.ship.name}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Fuel:</span>
+                        <span>{{profile.ship.fuel.main.level}}/{{profile.ship.fuel.main.capacity}}t {{profile.ship.fuel.main.percentage}}%</span>
+                    </div>
+                    <h2>Other ships</h2>
+                    <div class="property" ng-repeat="ship in profile.ships" ng-if="ship.starsystem">
+                        <span>{{ship.starsystem.name}}:</span>
+                        <span>{{ship.name}}</span>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-sm-8">
+                <section class="box gradient">
+                    <h2>Latest log records</h2>
+                    <table class="log">
+                        <thead>
+                            <tr>
+                                <th>When</th>
+                                <th>System</th>
+                                <th>Station</th>
+                                <th>Del</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in log track by item.LogId">
+                                <td><a href="#/log/{{item.LogId}}">{{item.SystemName}}</a></td>
+                                <td>{{item.DateStamp | toRelativeDate}}</td>
+                                <td>{{item.StationName}}</td>
+                                <td><button type="button" class="fa fa-times" ng-click="deleteLog(item.LogId)"></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

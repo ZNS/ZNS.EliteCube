@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="eliteCube">
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">-->
+    <title></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <script>/*{CONFIG}*/</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-cookies.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.9/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="/eliteCube.js"></script>
+    <script src="/filters/DateFilters.js"></script>
+    <script src="/filters/NumberFilters.js"></script>
+    <script src="/services/ProfileService.js"></script>
+    <script src="/services/HeartService.js"></script>
+    <script src="/services/JourneyService.js"></script>
+    <script src="/services/WarningService.js"></script>
+    <script src="/directives/LogTable.js"></script>
+    <script src="/directives/Clock.js"></script>
+    <script src="/directives/ImageList.js"></script>
+    <script src="/directives/Pager.js"></script>
+    <script src="/directives/Heart.js"></script>
+    <script src="/directives/Journey.js"></script>
+    <script src="/controllers/LoginController.js"></script>
+    <script src="/controllers/VerificationController.js"></script>
+    <script src="/controllers/HomeController.js"></script>
+    <script src="/controllers/LogIndexController.js"></script>
+    <script src="/controllers/LogEditController.js"></script>
+    <script src="/controllers/SystemIndexController.js"></script>
+    <script src="/controllers/SystemViewController.js"></script>
+    <script src="/controllers/MainController.js"></script>
+    <script src="/controllers/JourneyIndexController.js"></script>
+    <script src="/controllers/JourneyViewController.js"></script>
+ </head>
+<body class="flicker" ng-controller="mainController">
+    <div class="site-bg">
+        <video width="100%" height="100%" autoplay="true" loop="true" muted="true">
+            <source src="/video/station.ogg" type="video/ogg">
+            <source src="/video/station.mp4" type="video/mp4">
+            <p>VIDEO FORMAT NOT SUPPORTED</p>
+        </video>
+    </div>
+    <div class="site-content">
+        <nav class="main">
+            <ul>
+                <li class="small"><a href="javascript://back" ng-click="back()"><span class="fa fa-arrow-left"></span></a></li>
+                <li class="small"><a href="javascript://forward" ng-click="forward()"><span class="fa fa-arrow-right"></span></a></li>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/log">Log</a></li>
+                <li><a href="#/system">Systems</a></li>
+                <li><a href="#/journey">Journeys</a></li>
+                <li class="clock right"><clock></clock></li>
+                <li class="right"><a href="javascript://update" ng-click="updateProfile()" ng-class="{disabled:profileUpdating}"><span class="counter">{{secondsLeft}}</span>Force update</a></li>
+                <li class="pause right"><a href="javascript://pause" ng-click="toggleUpdate()"><span ng-class="updatePaused ? 'fa fa-play' : 'fa fa-pause'"></span></a></li>
+            </ul>
+        </nav>
+        <main class="view">
+            <div ng-view></div>
+        </main>
+        <div id="pauseMessage" ng-show="updatePaused"><span>Updates paused. Nothing will be added to the log.</span></div>
+    </div>
+</body>
+</html>

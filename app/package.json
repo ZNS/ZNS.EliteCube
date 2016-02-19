@@ -1,0 +1,22 @@
+{
+  "name": "EliteCube",
+  "version": "0.0.0",
+  "description": "Elite Companion Cube",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Ulrik Andersson",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.5.2",
+    "body-parser": "^1.15.0",
+    "edge": "^5.0.0",
+    "event-stream": "^3.3.2",
+    "express": "^4.13.4",
+    "jsonstream": "^1.0.3",
+    "less-middleware": "^2.0.1",
+    "request": "^2.69.0",
+    "sqlite3": "^3.1.1"
+  }
+}

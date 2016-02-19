@@ -279,3 +279,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+nodejs/npm.cmd
+app/content/css/common.css
+app/content/tmp.js

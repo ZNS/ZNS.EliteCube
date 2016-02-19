@@ -1,0 +1,53 @@
+﻿<div id="LogEdit">
+    <div class="content-box">
+        <h1 class="subHeading">CMDR {{profile.commander.name}} / LOG / Rec. {{::log.LogId}}</h1>
+        <div class="subHeading">Logged {{log.DateStamp | toRelativeDate}} / {{log.DateStamp | toGameTime}}</div>
+    </div>
+
+    <div class="container-fluid full-width">
+        <div class="row equalHeight">
+            <div class="col-sm-6">
+                <div class="box gradient">
+                    <div>
+                        <img class="allegiance" ng-src="/images/{{log.Allegiance.toLowerCase()}}.svg" alt="" ng-if="log.Allegiance !== 'Independent'" />
+                        <h2><heart system-id="{{::log.SystemId}}"></heart> <a href="#/system/{{::log.SystemId}}">{{::log.SystemName}}</a></h2>
+                        <span>{{::log.StationName}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Primary economy:</span>
+                        <span>{{::log.Economy}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Population:</span>
+                        <span>{{::log.Population | delimited}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Allegiance:</span>
+                        <span>{{::log.Allegiance}}</span>
+                    </div>
+                    <div class="property">
+                        <span>Controlling faction:</span>
+                        <span>{{::log.Faction}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <h2>Notes</h2>
+                    <textarea id="notes" ng-model="log.Notes"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="logOther.length > 0">
+        <h2>All records for {{::log.SystemName}}</h2>
+        <log-table log="logOther"></log-table>
+        <pager page-data="pageData"></pager>
+    </div>
+
+    <div ng-if="images.length > 0" class="images">
+        <h2>Imagery</h2>
+        <image-list images="images"></image-list>
+    </div>
+</div>

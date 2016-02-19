@@ -1,0 +1,51 @@
+﻿<div id="JourneyView">
+    <div class="content-box">
+        <h1>CMDR {{profile.commander.name}} / Journey / {{::journey.Heading}}</h1>
+
+        <div class="container-fluid full-width">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="box gradient">
+                        <h2>Stats</h2>
+                        <div class="property">
+                            <span>Started:</span>
+                            <span>{{journey.StartDate | toDateString }}</span>
+                        </div>
+                        <div class="property" ng-if="journey.EndDate">
+                            <span>Ended:</span>
+                            <span>{{journey.EndDate | toDateString }}</span>
+                        </div>
+                        <div class="property">
+                            <span>Duration</span>
+                            <span>{{journey.StartDate | dateDiff:journey.EndDate}}</span>
+                        </div>
+                        <div class="property">
+                            <span>Log records</span>
+                            <span>{{logCount}}</span>
+                        </div>
+                        <div class="clearfix" ng-if="!journey.EndDate">
+                            <button type="button" class="journey" ng-click="endJourney()">End journey</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="box gradient">
+                        <h2>Description</h2>
+                        <p>{{::journey.Description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="log.length > 0">
+            <h2>Log</h2>
+            <log-table log="log"></log-table>
+            <pager page-data="pageData"></pager>
+        </div>
+
+        <div ng-if="images.length > 0" class="images">
+            <h2>Imagery</h2>
+            <image-list images="images"></image-list>
+        </div>
+    </div>
+</div>

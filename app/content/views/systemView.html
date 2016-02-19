@@ -1,0 +1,68 @@
+﻿<div id="SystemView">
+    <div class="content-box">
+        <h1 class="subHeading">CMDR {{profile.commander.name}} / System / {{::system.SystemName}}</h1>
+        <div class="subHeading"><heart system-id="{{::system.SystemId}}"></heart> id: {{::system.SystemId}}, Coordinates: {{::system.CoordX.toFixed(4)}}, {{::system.CoordY.toFixed(4)}}, {{::system.CoordZ.toFixed(4)}}</div>
+    </div>
+    
+    <h2>Log</h2>
+    <table class="full">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Visited</th>
+                <th>Time</th>
+                <th>Station</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="l in log">
+                <td width="40" align="center"><a href="javascript://toggle" ng-click="toggle(l)"><span class="fa fa-plus"></span></a></td>
+                <td>{{l.DateStamp | toRelativeDate}}</td>                
+                <td>{{l.DateStamp | toGameTime}}</td>
+                <td>{{l.StationName || 'N/A'}}</td>
+                <td width="40"><span ng-class="{'fa fa-file-text': l.Notes}"></span></td>
+            </tr>
+            <tr ng-repeat-end class="expansion" ng-show="l.Expanded">
+                <td colspan="4">
+                    <div class="card">
+                        <div class="properties">
+                            <div>
+                                <span>Population:</span>
+                                <span>{{l.Population | delimited}}</span>
+                            </div>
+                            <div>
+                                <span>Economy:</span>
+                                <span>{{l.Economy || 'N/A'}}</span>
+                            </div>
+                            <div>
+                                <span>Allegiance:</span>
+                                <span>{{l.Allegiance || 'N/A'}}</span>
+                            </div>
+                            <div>
+                                <span>Faction:</span>
+                                <span>{{l.Faction || 'N/A'}}</span>
+                            </div>
+                            <div>                                
+                                <span>Government:</span>
+                                <span>{{l.Government || 'N/A'}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Notes</h3>
+                                {{l.Notes !== null ? l.Notes : 'N/A'}}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pager page-data="pageData"></pager>
+
+    <div class="images" ng-if="images.length > 0">
+        <h2>Imagery</h2>
+        <image-list images="images"></image-list>
+    </div>
+</div>

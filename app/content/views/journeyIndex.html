@@ -1,0 +1,27 @@
+﻿<div id="JourneyIndex">
+    <div class="content-box">
+        <h1>CMDR {{profile.commander.name}} / Journeys</h1>
+
+        <journey-new></journey-new>
+
+        <table class="full">
+            <thead>
+                <tr>
+                    <th>Journey</th>
+                    <th>Started</th>
+                    <th>Ended</th>
+                    <th>Log records</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="journey in journeys">
+                    <td><a href="#/journey/{{journey.JourneyId}}">{{journey.Heading}}</a></td>
+                    <td>{{journey.StartDate | toDateString}}</td>
+                    <td>{{journey.EndDate | toDateString}}</td>
+                    <td>{{journey.LogCount}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pager page-data="pageData"></pager>
+    </div>
+</div>

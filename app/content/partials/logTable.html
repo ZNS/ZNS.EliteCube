@@ -1,0 +1,26 @@
+﻿<table class="full">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Real date</th>
+            <th>System</th>
+            <th>Station</th>
+            <th>Coordinates</th>
+            <th>Allegiance</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in log">
+            <td><a href="#/log/{{item.LogId}}">{{item.SystemName}}</a></td>
+            <td>{{item.DateStamp | toRelativeDate}}</td>
+            <td>{{item.DateStamp | toGameTime}}</td>
+            <td>{{item.StationName || 'N/A'}}</td>
+            <td>{{item.CoordX.toFixed(1)}}, {{item.CoordY.toFixed(1)}}, {{item.CoordZ.toFixed(1)}}</td>
+            <td>{{item.Allegiance || 'N/A'}}</td>
+            <td width="40"><span ng-class="{'fa fa-picture-o': item.HasImages === 1}"></span></td>
+            <td width="40"><span ng-class="{'fa fa-file-text': item.Notes}"></span></td>
+        </tr>
+    </tbody>
+</table>

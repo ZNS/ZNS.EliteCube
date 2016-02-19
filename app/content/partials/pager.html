@@ -1,0 +1,5 @@
+﻿<div class="pager">
+    <ul>
+        <li ng-repeat="p in pages" ng-class="{active: p.page == page}"><a href="javascript://page{{p.page}}" ng-click="viewPage(p.page)">{{p.page + 1}}</a></li>
+    </ul>
+</div>
