@@ -27,7 +27,7 @@ namespace ZNS.EliteCube.Models
                     {
                         var job = factory.Load(imagePath);
                         if (maxSize > 0) {
-                            job = job.Resize(new ImageProcessor.Imaging.ResizeLayer(new Size { Width = 1920, Height = 0 }, upscale: false));
+                            job = job.Resize(new ImageProcessor.Imaging.ResizeLayer(new Size { Width = maxSize, Height = 0 }, upscale: false));
                         }
                         job
                             .Format(new PngFormat { Quality = 100 })

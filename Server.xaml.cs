@@ -14,7 +14,7 @@ namespace ZNS.EliteCube
             public string Text { get; set; }
         }
 
-        public Server()
+        public Server(int port)
         {
             InitializeComponent();
 
@@ -30,10 +30,10 @@ namespace ZNS.EliteCube
             }
 
             textBlock.DataContext = new TextBoxText {
-                Text = "Server is running. Open http://" + (strIP ?? "localhost") + ":8000 in your browser. Preferably Chrome. Close this window to stop server."
+                Text = "Server is running. Open http://" + (strIP ?? "localhost") + ":" + port + " in your browser. Preferably Chrome. Close this window to stop server."
             };
 
-            System.Diagnostics.Process.Start("http://localhost:8000");
+            System.Diagnostics.Process.Start("http://localhost:" + port);
         }
     }
 }

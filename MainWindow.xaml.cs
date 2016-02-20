@@ -8,7 +8,7 @@ namespace ZNS.EliteCube
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(int port)
         {
             InitializeComponent();
 
@@ -25,7 +25,7 @@ namespace ZNS.EliteCube
             Cef.Initialize(settings, true, false); //This always returns false, but seems to work anyway...?
             var browser = new CefSharp.Wpf.ChromiumWebBrowser();
             mainGrid.Children.Add(browser);
-            browser.Address = "http://localhost:8000";
+            browser.Address = "http://localhost:" + port;
         }
     }
 }
