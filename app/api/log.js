@@ -5,6 +5,7 @@ var es = es = require('event-stream');
 var async = require('async');
 var path = require('path');
 var request = require('request');
+var mv = require('mv');
 
 sqlite3.toNamedParams = function (obj) {
     var param = {};
@@ -231,10 +232,90 @@ module.exports = function (app, config) {
 
     app.delete('/api/log/:id', function (req, res) {
         var db = new sqlite3.Database(config.runtime.db_conn, sqlite3.OPEN_READWRITE);
-        db.run("DELETE FROM tblLog WHERE LogId = ?", req.params.id, function (err) {
-            res.send({status: err ? "notok" : "ok"});
-        });
-        db.close();
+
+        async.series([
+            function (callbackOuter) {
+                if (req.query.moveImages && req.query.moveImages == 1) {
+                    async.waterfall([
+                        function (callback) {
+                            //Get images
+                            db.all("SELECT * FROM tblLogImage WHERE LogId = ?", req.params.id, function (err, rows) {
+                                callback(err, rows || []);
+                            });
+                        },
+                        function (images, callback) {
+                            if (images.length == 0) {
+                                callback(null, null, null);
+                            }
+
+                            //get destination
+                            db.get("SELECT LogId, SystemId FROM tblLog WHERE LogId < ? ORDER BY LogId DESC LIMIT 1", req.params.id, function (err, row) {
+                                console.log(err);
+                                callback(err, images, row)
+                            });
+                        },
+                        function (images, toLog, callback) {
+                            if (!images || !toLog) {
+                                callback(null, null);
+                            }
+
+                            //Move images
+                            async.each(images, function (img, cb) {
+                                var dir = path.parse(img.ImagePath).dir;
+                                var fileName = path.parse(img.ImagePath).base;
+                                mv(path.join('.', 'data', dir, fileName), path.join(config.runtime.screenshots_destination, toLog.SystemId, fileName), { mkdirp: true }, function (err) {
+                                    mv(path.join('.', 'data', dir, fileName.replace('.png', '_thumb.png')), path.join(config.runtime.screenshots_destination, toLog.SystemId, fileName.replace('.png', '_thumb.png')), { mkdirp: true }, function (err) {
+                                        console.log(err);
+                                        cb(null);
+                                    });
+                                });
+                            },
+                            function (err) {
+                                //Done
+                                callback(err, images, toLog);
+                            });
+                        },
+                        function (images, toLog, callback) {
+                            //Update table with moved info
+                            if (images && toLog) {
+                                db.serialize(function () {
+                                    for (var i = 0; i < images.length; i++) {
+                                        var oldPath = path.parse(images[i].ImagePath);
+                                        var newImagePath = path.join('screenshots', toLog.SystemId, oldPath.base);
+                                        db.run("UPDATE tblLogImage SET LogId = ?, SystemId = ?, SystemName = ?, ImagePath = ? WHERE LogId = ?", toLog.LogId, toLog.SystemId, toLog.SystemName, newImagePath, req.params.id);
+                                    }
+                                    db.run("UPDATE tblLog SET HasImages = 1 WHERE LogId = ?", toLog.LogId, function () {
+                                        callback(null);
+                                    });
+                                });
+                            }
+                            else {
+                                callback(null);
+                            }
+                        }
+                    ],
+                    function (err) {
+                        //Waterfall complete
+                        callbackOuter(err);
+                    });
+                }
+                else {
+                    //Skip processing images
+                    callbackOuter(null);
+                }
+            },
+            function (callbackOuter) {
+                //Delete
+                db.serialize(function () { 
+                    db.run("DELETE FROM tblJourneyLog WHERE LogId = ?", req.params.id);
+                    db.run("DELETE FROM tblLogImage WHERE LogId = ?", req.params.id);
+                    db.run("DELETE FROM tblLog WHERE LogId = ?", req.params.id, function (err) {
+                        res.send({ status: err ? "notok" : "ok" });
+                    });
+                })
+                db.close();
+            }
+        ]);
     });
 
     app.get('/api/systems', function (req, res) {

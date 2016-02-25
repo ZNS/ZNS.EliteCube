@@ -1,0 +1,8 @@
+﻿<div id="DeleteLog">
+    <form class="default">
+        <h4>Delete rec. {{::log.LogId}} / {{::log.SystemName}}</h4>
+        <button type="button" class="delete" ng-click="delete(0)">Delete</button>
+        <button type="button" class="delete" ng-if="log.HasImages" ng-click="delete(1)">Delete and move images to previous log</button>
+        <button type="button" class="cancel" ng-click="close()">Cancel</button>
+    </form>
+</div>

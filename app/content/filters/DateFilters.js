@@ -12,7 +12,7 @@
         if (!input) {
             return "";
         }
-        return moment(input).add(1286, 'year').format('MMM D, YYYY HH:mm');
+        return moment(input).utc().add(1286, 'year').format('MMM D, YYYY HH:mm');
     }
 })
 .filter('toDateString', function () {

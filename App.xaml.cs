@@ -35,7 +35,6 @@ namespace ZNS.EliteCube
             _ProcessNodeJs.Start();
 
             //Read config
-            bool serverOnly = false;
             string eddb_systems_url = "https://eddb.io/archive/v4/systems.json";
             int port = 8000;
             try {
@@ -47,11 +46,7 @@ namespace ZNS.EliteCube
                         while ((line = sr.ReadLine()) != null)
                         {
                             var kv = line.Trim().TrimEnd(';').Split('=');
-                            if (kv[0].Trim() == "config.server_only")
-                            {
-                                serverOnly = bool.Parse(kv[1].Trim());
-                            }
-                            else if (kv[0].Trim() == "config.eddb_systems_url")
+                            if (kv[0].Trim() == "config.eddb_systems_url")
                             {
                                 eddb_systems_url = kv[1].Trim().Trim('\'');
                             }
@@ -68,17 +63,9 @@ namespace ZNS.EliteCube
                 //Log
             }
 
-            //Run browser
-            if (serverOnly)
-            {
-                var server = new Server(port);
-                server.Show();
-            }
-            else
-            {
-                var main = new MainWindow(port);
-                main.Show();
-            }
+            //Run
+            var server = new Server(port);
+            server.Show();
 
             //Update EDDB data
             try

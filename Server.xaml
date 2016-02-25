@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZNS.EliteCube"
         mc:Ignorable="d"
-        Title="Elite Cube - Server Mode" Height="143.673" Width="300">
+        Title="Elite Cube - Server Mode" Height="160" Width="300">
     <Grid Background="#FF444444">
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFF0F0F0" Width="272" FontFamily="Arial" FontSize="18.667">
             <Run Text="{Binding Text}"/>

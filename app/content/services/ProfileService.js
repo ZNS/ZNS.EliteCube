@@ -28,7 +28,7 @@
         //Get profile email from cookie
         _profileEmail = $cookies.get(LOGIN_COOKIE);
         if (_profileEmail == null) {
-            qResolveProfile.reject();
+            qResolveProfile.reject({ status: "NoCookie" });
             return qResolveProfile.promise;
         }
 

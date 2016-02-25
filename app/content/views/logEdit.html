@@ -7,7 +7,7 @@
     <div class="container-fluid full-width">
         <div class="row equalHeight">
             <div class="col-sm-6">
-                <div class="box gradient">
+                <div class="box gradient" style="position:relative;">
                     <div>
                         <img class="allegiance" ng-src="/images/{{log.Allegiance.toLowerCase()}}.svg" alt="" ng-if="log.Allegiance !== 'Independent'" />
                         <h2><heart system-id="{{::log.SystemId}}"></heart> <a href="#/system/{{::log.SystemId}}">{{::log.SystemName}}</a></h2>
@@ -29,6 +29,7 @@
                         <span>Controlling faction:</span>
                         <span>{{::log.Faction}}</span>
                     </div>
+                    <delete-log log="log" text-button="true"></delete-log>
                 </div>
             </div>
             <div class="col-sm-6">

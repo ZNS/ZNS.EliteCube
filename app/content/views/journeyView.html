@@ -23,8 +23,9 @@
                             <span>Log records</span>
                             <span>{{logCount}}</span>
                         </div>
-                        <div class="clearfix" ng-if="!journey.EndDate">
-                            <button type="button" class="journey" ng-click="endJourney()">End journey</button>
+                        <div class="clearfix">
+                            <button type="button" class="journey" ng-click="viewMap()" style="float:left;">View on map</button>
+                            <button type="button" class="journey" ng-click="endJourney()" ng-if="!journey.EndDate">End journey</button>
                         </div>
                     </div>
                 </div>

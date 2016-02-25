@@ -125,7 +125,7 @@
                                 <td><a href="#/log/{{item.LogId}}">{{item.SystemName}}</a></td>
                                 <td>{{item.DateStamp | toRelativeDate}}</td>
                                 <td>{{item.StationName}}</td>
-                                <td><button type="button" class="fa fa-times" ng-click="deleteLog(item.LogId)"></button></td>
+                                <td><delete-log log="item"></delete-log></td>
                             </tr>
                         </tbody>
                     </table>

@@ -6,7 +6,7 @@ var config = require('../config');
 var path = require('path');
 
 config.runtime = {
-    db_version: 1,
+    db_version: 2,
     db_path: path.join('.', 'data', 'db'),
     db_name: 'elitecube.db',
     db_conn: path.join('.', 'data', 'db', 'elitecube.db'),

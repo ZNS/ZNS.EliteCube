@@ -11,14 +11,6 @@
         renderJourney();
     });
 
-    $scope.deleteLog = function (logId) {
-        if (confirm('Delete this record?')) {
-            $http.delete('/api/log/' + logId).then(function () {
-                render();
-            });
-        }
-    };
-
     function renderJourney() {
         journeyService.getCurrentJourney().then(function (journey) {
             $scope.currentJourney = journey;

@@ -42,6 +42,10 @@
             templateUrl: 'views/journeyView.html',
             controller: 'journeyViewController',
             reloadOnSearch: false
+        })
+        .when('/map/journey/:id', {
+            templateUrl: 'views/map.html',
+            controller: 'mapController',
         });
 }])
 .run(['$rootScope', function ($rootScope) {

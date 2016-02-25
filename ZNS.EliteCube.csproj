@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\CefSharp.Wpf.47.0.2\build\CefSharp.Wpf.props" Condition="Exists('..\packages\CefSharp.Wpf.47.0.2\build\CefSharp.Wpf.props')" />
-  <Import Project="..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -111,16 +109,8 @@
     <Compile Include="Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Server.xaml">
@@ -343,15 +333,61 @@
     <None Include="app\package.json" />
     <Content Include="app\api\fav.js" />
     <Content Include="app\api\journey.js" />
+    <Content Include="app\api\map.js" />
     <Content Include="app\content\controllers\JourneyIndexController.js" />
     <Content Include="app\content\controllers\JourneyViewController.js" />
     <Content Include="app\content\controllers\MainController.js" />
+    <Content Include="app\content\controllers\MapController.js" />
     <Content Include="app\content\controllers\SystemViewController.js" />
     <Content Include="app\content\css\font-awesome.min.css" />
+    <Content Include="app\content\directives\DeleteLog.js" />
     <Content Include="app\content\directives\Heart.js" />
     <Content Include="app\content\directives\ImageList.js" />
     <Content Include="app\content\directives\Journey.js" />
     <Content Include="app\content\directives\Pager.js" />
+    <Content Include="app\content\ed3d-galaxy-map\css\styles.css" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\action.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\galaxy.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\grid.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\hud.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\icon.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\route.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\components\system.class.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\ed3dmap.js" />
+    <Content Include="app\content\ed3d-galaxy-map\js\ed3dmap.min.js" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\heightmap2.jpg" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\heightmap7.jpg" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\flare.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\flare2.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\flare3.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare0.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare1.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare2.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare3.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare_white.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\lensflare_white2.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\star_grey.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\star_grey2.png" />
+    <Resource Include="app\content\ed3d-galaxy-map\textures\lensflare\star_yellow.png" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\CSS3DRenderer.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\FontUtils.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\helvetiker_regular.typeface.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\OrbitControls.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\AdaptiveToneMappingPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\BloomPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\BokehPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\EffectComposer.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\MaskPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\RenderPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\postprocessing\ShaderPass.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\Projector.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\RaytracingRenderer.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\ShaderMaterial.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\shaders\BokehShader.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\shaders\CopyShader.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\three-js\TextGeometry.js" />
+    <Content Include="app\content\ed3d-galaxy-map\vendor\tween-js\Tween.js" />
+    <Content Include="app\content\partials\deleteLog.html" />
     <Content Include="app\content\partials\imageList.html" />
     <Content Include="app\content\partials\journeyForm.html" />
     <Content Include="app\content\partials\pager.html" />
@@ -361,6 +397,7 @@
     <Content Include="app\content\tmp.js" />
     <Content Include="app\content\views\journeyIndex.html" />
     <Content Include="app\content\views\journeyView.html" />
+    <Content Include="app\content\views\map.html" />
     <Content Include="app\content\views\systemView.html" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -497,21 +534,8 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\cef.redist.x64.3.2526.1362\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2526.1362\build\cef.redist.x64.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2526.1362\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2526.1362\build\cef.redist.x64.targets'))" />
-    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.targets'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Wpf.47.0.2\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.47.0.2\build\CefSharp.Wpf.props'))" />
-  </Target>
-  <Import Project="..\packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets')" />
-  <Import Project="..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.47.0.2\build\CefSharp.Common.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)nodejs\node.exe" "$(TargetDir)node.exe" /y
+    <PostBuildEvent>xcopy "$(ProjectDir)nodejs\node.exe" "$(TargetDir)" /y
 (robocopy "$(ProjectDir)app" "$(TargetDir)app" /MIR)  ^&amp; exit 0</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,6 +3,9 @@ var lessMiddleware = require('less-middleware');
 var bodyParser = require('body-parser');
 var path = require('path');
 var fs = require('fs');
+var autoprefixer = require('autoprefixer');
+var postcss = require('postcss');
+var interceptor = require('express-interceptor');
 var app;
 var cachedIndexHtml = null;
 
@@ -34,6 +37,22 @@ var start = function (config, callback) {
 
     //Less
     app.use(lessMiddleware(path.join(__dirname, 'content')));
+    //Auto prefixer
+    app.use(interceptor(function (req, res, next) {
+        return {
+            isInterceptable: function(){
+                return /text\/css/.test(res.get('Content-Type'));
+            },
+            intercept: function (body, send) {
+                postcss([autoprefixer({ browsers: ['last 2 versions'] })]).process(body).then(function (result) {
+                    result.warnings().forEach(function (warn) {
+                        console.warn(warn.toString());
+                    });
+                    send(result.css);
+                });
+            }
+        };
+    }));
 
     //Static content
     app.use(express.static(path.join(__dirname, 'content')));
@@ -45,6 +64,7 @@ var start = function (config, callback) {
     require('./api/image')(app, config);
     require('./api/fav')(app, config);
     require('./api/journey')(app, config);
+    require('./api/map')(app, config);
 
     app.listen(config.nodejs_port, function () {
         console.log('Listening on port ' + config.nodejs_port);

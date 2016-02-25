@@ -1,8 +1,17 @@
 ﻿var fs = require('fs');
 var path = require('path');
 var async = require('async');
+var sqlite3 = require('sqlite3');
 
 module.exports = function (app, config) {
+    app.get('/api/images', function (req, res) {
+        var db = new sqlite3.Database(config.runtime.db_conn, sqlite3.OPEN_READWRITE);
+        db.all("SELECT * FROM tblLogImage ORDER BY DateStamp DESC", function (err, rows) {
+            res.send(rows);
+        });
+        db.close();
+    });
+
     app.get('/api/images/:systemId', function (req, res) {
         var imagePath = path.join(config.runtime.screenshots_destination, req.params.systemId);
         fs.stat(imagePath, function (err, stats) {

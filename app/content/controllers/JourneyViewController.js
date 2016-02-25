@@ -30,6 +30,10 @@
         });
     };
 
+    $scope.viewMap = function () {
+        $location.path('/map/journey/' + $scope.journey.JourneyId);
+    };
+
     function render() {
         $http.get('/api/journey/' + $routeParams.id).then(function (response) {
             $scope.journey = response.data.journey;
@@ -53,6 +57,7 @@
 
         $http.get('/api/journey/' + $routeParams.id + '/logs', { params: param }).then(function (response) {
             $scope.log = response.data.result;
+            $scope.pageData.count = response.data.count;
             $scope.logCount = response.data.count;
         });
     }

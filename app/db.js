@@ -46,6 +46,8 @@ module.exports = function (config, callback) {
                         "LogImageId INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "LogId INTEGER NOT NULL," +
                         "ImagePath TEXT NOT NULL," +
+                        "SystemId TEXT NOT NULL," +
+                        "SystemName TEXT NOT NULL," +
                         "DateStamp INTEGER NOT NULL)");
                     db.run("PRAGMA user_version = " + config.runtime.db_version, function (err) {
                         callback(null);
@@ -61,8 +63,14 @@ module.exports = function (config, callback) {
                     var version = row.user_version;
                     db.serialize(function () {
                         if (version < config.runtime.db_version) {
-                            if (version <= 1) {
-                                //Changes here
+                            if (version <= 2) {
+                                db.run("ALTER TABLE tblLogImage ADD COLUMN SystemId TEXT NOT NULL DEFAULT ''");
+                                db.run("ALTER TABLE tblLogImage ADD COLUMN SystemName TEXT NOT NULL DEFAULT ''");
+                                db.run("UPDATE tblLogImage SET SystemId = (SELECT SystemId FROM tblLog WHERE tblLog.LogId = tblLogImage.LogId)");
+                                db.run("UPDATE tblLogImage SET SystemName = (SELECT SystemName FROM tblLog WHERE tblLog.LogId = tblLogImage.LogId)");
+                                db.all("SELECT * FROM tblLogImage", function (err, rows) {
+                                    console.log(rows);
+                                });
                             }
                             db.run("PRAGMA user_version = " + config.runtime.db_version);
                         }
