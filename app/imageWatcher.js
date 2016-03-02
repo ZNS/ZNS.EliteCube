@@ -59,7 +59,7 @@ module.exports = function (config, callbackModule) {
                         if (log && (filename.indexOf('.png') > 0 || filename.indexOf('.bmp') > 0 || filename.indexOf('.jpg') > 0)) {
                             copyScreenshot({
                                     imagePath: path.join(imagePath, filename),
-                                    destinationPath: path.join(config.runtime.screenshots_destination, profile.lastSystem.id),
+                                    destinationPath: path.join(config.runtime.screenshots_destination, log.SystemId),
                                     maxSize: config.screenshot_maxsize
                                 },
                                 function (err, result) {
