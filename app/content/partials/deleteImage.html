@@ -1,0 +1,9 @@
+﻿<div id="DeleteImage">
+    <form class="default">
+        <h4>Delete image</h4>
+        <button type="button" class="delete" ng-click="deleteImage(false)">Delete</button>
+        <button type="button" class="delete" ng-click="deleteImage(true)" ng-if="imageDelete.imgurLink !== null">Delete with imgur</button>
+        <button type="button" class="delete" ng-click="deleteImgur()" ng-if="imageDelete.imgurLink !== null">Delete imgur only</button>
+        <button type="button" class="cancel" ng-click="close()">Cancel</button>
+    </form>
+</div>

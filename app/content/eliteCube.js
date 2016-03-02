@@ -46,6 +46,11 @@
         .when('/map/journey/:id', {
             templateUrl: 'views/map.html',
             controller: 'mapController',
+        })
+        .when('/image', {
+            templateUrl: 'views/imageIndex.html',
+            controller: 'imageIndexController',
+            reloadOnSearch: false
         });
 }])
 .run(['$rootScope', function ($rootScope) {

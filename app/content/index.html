@@ -45,6 +45,7 @@
     <script src="/controllers/JourneyIndexController.js"></script>
     <script src="/controllers/JourneyViewController.js"></script>
     <script src="/controllers/MapController.js"></script>
+    <script src="/controllers/ImageIndexController.js"></script>
  </head>
 <body class="flicker" ng-controller="mainController">
     <div class="site-bg">
@@ -63,6 +64,7 @@
                 <li><a href="#/log">Log</a></li>
                 <li><a href="#/system">Systems</a></li>
                 <li><a href="#/journey">Journeys</a></li>
+                <li><a href="#/image">Images</a></li>
                 <li class="clock right"><clock></clock></li>
                 <li class="right"><a href="javascript://update" ng-click="updateProfile()" ng-class="{disabled:profileUpdating}"><span class="counter">{{secondsLeft}}</span>Force update</a></li>
                 <li class="pause right"><a href="javascript://pause" ng-click="toggleUpdate()"><span ng-class="updatePaused ? 'fa fa-play' : 'fa fa-pause'"></span></a></li>

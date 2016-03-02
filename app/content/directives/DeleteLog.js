@@ -15,7 +15,6 @@
             }
 
             $scope.confirmDelete = function () {
-                console.log($scope.log);
                 $templateRequest('/partials/deleteLog.html').then(function (template) {
                     _layer = $($compile(template)($scope)).appendTo("body");
                 });

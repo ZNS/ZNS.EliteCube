@@ -1,6 +1,14 @@
 ﻿<ul class="imageList">
     <li ng-repeat="img in images | orderBy: '-created'">
         <a href="{{img.path.replace('_thumb', '')}}" ng-click="viewImage($event)"><img ng-src="{{img.path}}" alt="" /></a>
-        <div><span ng-if="img.system">{{img.system}}</span> {{img.date | toDateString:true}}</div>
+        <div>
+            <span ng-if="img.system">{{img.system}}</span> 
+            <div class="clearfix">
+                <span>{{img.date | toDateString:true}}</span>
+                <button class="fa fa-times" type="button" ng-click="delete(img.id)"></button>
+                <button ng-if="!img.imgurLink || img.imgurLink == ''" class="fa fa-cloud-upload" type="button" ng-click="upload(img.id, $event)" title="Upload to imgur"></button>
+                <a ng-if="img.imgurLink && img.imgurLink != ''" href="{{img.imgurLink}}" target="_blank" class="fa fa-cloud"></a>
+            </div>
+        </div>
     </li>
 </ul>

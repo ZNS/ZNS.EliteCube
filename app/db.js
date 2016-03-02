@@ -48,6 +48,8 @@ module.exports = function (config, callback) {
                         "ImagePath TEXT NOT NULL," +
                         "SystemId TEXT NOT NULL," +
                         "SystemName TEXT NOT NULL," +
+                        "ImgurLink TEXT," +
+                        "ImgurDeleteHash TEXT," +
                         "DateStamp INTEGER NOT NULL)");
                     db.run("PRAGMA user_version = " + config.runtime.db_version, function (err) {
                         callback(null);
@@ -63,14 +65,15 @@ module.exports = function (config, callback) {
                     var version = row.user_version;
                     db.serialize(function () {
                         if (version < config.runtime.db_version) {
-                            if (version <= 2) {
+                            if (version < 2) {
                                 db.run("ALTER TABLE tblLogImage ADD COLUMN SystemId TEXT NOT NULL DEFAULT ''");
                                 db.run("ALTER TABLE tblLogImage ADD COLUMN SystemName TEXT NOT NULL DEFAULT ''");
                                 db.run("UPDATE tblLogImage SET SystemId = (SELECT SystemId FROM tblLog WHERE tblLog.LogId = tblLogImage.LogId)");
                                 db.run("UPDATE tblLogImage SET SystemName = (SELECT SystemName FROM tblLog WHERE tblLog.LogId = tblLogImage.LogId)");
-                                db.all("SELECT * FROM tblLogImage", function (err, rows) {
-                                    console.log(rows);
-                                });
+                            }
+                            if (version < 3) {
+                                db.run("ALTER TABLE tblLogImage ADD COLUMN ImgurLink TEXT");
+                                db.run("ALTER TABLE tblLogImage ADD COLUMN ImgurDeleteHash TEXT");
                             }
                             db.run("PRAGMA user_version = " + config.runtime.db_version);
                         }

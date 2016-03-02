@@ -12,6 +12,8 @@ config.screenshot_path = 'D:\\Privat\\Pictures\\Frontier Developments\\Elite Dan
 config.screenshot_maxsize = 1920;
 //Set to false to use an image background for better performance
 config.client.video_bg = false;
+//Imgur client id
+config.imgur_clientid = '8f95a0e8c8375a4';
 //Set to true to only log travels to unvisited systems, instead of all travels. NOT IMPLEMENTED YET
 //config.client.log_unique_only = false;
 /* -------------------- */

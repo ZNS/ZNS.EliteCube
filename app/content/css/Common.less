@@ -366,7 +366,7 @@ ul.imageList {
         position: relative;
         margin-bottom: 30px;
 
-        div {
+        > div {
             display: block;
             position: absolute;
             background: rgba(0, 0, 0, 0.8);
@@ -378,6 +378,31 @@ ul.imageList {
             > span {
                 display: block;
             }
+
+            > div > span {
+                float: left;
+            }
+
+            > div > button, > div > a {
+                float: right;
+                margin-left: 10px;
+            }
+
+            > div > a {
+                line-height: 2.1rem;
+                color: fade(@main-color, 80);
+            }
+        }
+
+        &.loader::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 180px;
+            background: rgba(0,0,0,0.8) url(/images/loader.svg) no-repeat center center;
+            background-size: 60px 60px;
         }
     }
 
@@ -543,7 +568,7 @@ form.default {
     }
 }
 
-#JourneyForm, #DeleteLog {
+#JourneyForm, #DeleteLog, #DeleteImage {
     position: fixed;
     top: 0;
     left: 0;

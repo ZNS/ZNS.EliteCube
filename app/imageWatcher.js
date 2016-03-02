@@ -75,6 +75,8 @@ module.exports = function (config, callbackModule) {
                                                     console.log(err);
                                             });
                                             db.run("UPDATE tblLog SET HasImages = 1 WHERE LogId = ?", log.LogId, function (err) {
+                                                if (err)
+                                                    console.log(err);
                                                 callback(null);
                                             });
                                         });
